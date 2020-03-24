@@ -1,7 +1,8 @@
 const express = require("express");
 var res_xml = require('object-to-xml');
 const mysql      = require('mysql');
-
+var xmlparser = require('express-xml-bodyparser');
+app.use(xmlparser());
 // Set your app credentials
 const credentials = {
     apiKey: '4b70baaac52b643ce672febd698d82118a52ebe2ac75d7799a935aba64d2fb68',
