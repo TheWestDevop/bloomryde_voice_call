@@ -2,6 +2,9 @@
   "name": "bloomrydes_token_voice_call",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "^12.16.1"
+  },
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
