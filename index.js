@@ -2,7 +2,7 @@ const express = require("express");
 var res_xml = require('object-to-xml');
 const mysql      = require('mysql');
 var xmlparser = require('express-xml-bodyparser');
-app.use(xmlparser());
+
 // Set your app credentials
 const credentials = {
     apiKey: '4b70baaac52b643ce672febd698d82118a52ebe2ac75d7799a935aba64d2fb68',
@@ -21,10 +21,15 @@ const connection = mysql.createPool({
 const voice = AfricasTalking.VOICE;
 
 const app = express();
+const bodyparser = require("body-parser");
 
 const port = process.env.PORT || 3200;
 
+// middleware
 
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(xmlparser());
 
 app.get("/voice", (req, res) => {
    let query = "SELECT * FROM `tokens` WHERE phone = +2349021235354 ORDER BY ID DESC LIMIT 1 ";
