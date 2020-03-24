@@ -66,7 +66,7 @@ app.post("/voice/token", (req, res) => {
 
                // var response  = '<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>';
                res.set('Content-Type', 'text/xml');
-               res.status(200).send(res_xml({
+               res.send(res_xml({
                    '?xml version="1.0" encoding="utf-8"?' : null,
                    Response:{Say:statement}
                }));
