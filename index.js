@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql      = require('mysql');
-//const xmlparser = require('express-xml-bodyparser');
+
 
 // Set your app credentials
 const credentials = {
@@ -8,14 +8,14 @@ const credentials = {
     username: 'Bloomrydes'
 }
 const AfricasTalking = require('africastalking')(credentials);
-const db = "bloomrydes";
-const connection = mysql.createConnection({
-    host: "bloomrydes1.mysql.database.azure.com",
-    user: "bloomrydes@bloomrydes1", 
-    password:"%M#{rav#i)gs", 
-    database:db, 
-    port: 3306, 
- });
+// const db = "bloomrydes";
+// const connection = mysql.createConnection({
+//     host: "bloomrydes1.mysql.database.azure.com",
+//     user: "bloomrydes@bloomrydes1", 
+//     password:"%M#{rav#i)gs", 
+//     database:db, 
+//     port: 3306, 
+//  });
 
 const voice = AfricasTalking.VOICE;
 
@@ -28,9 +28,7 @@ const port = process.env.PORT || 3200;
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
-//app.use(xmlparser());
 
-connection.connect();
 
 // app.get("/voice", (req, res) => {
 //    let query = "SELECT * FROM `tokens` WHERE phone = +2349021235354 ORDER BY ID DESC LIMIT 1 ";
@@ -57,11 +55,9 @@ app.post("/voice/token", (req, res) => {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
-      callTo: '+2349021235354'
+      callTo: `${user}`
     }
-        let query = "SELECT * FROM `tokens` WHERE phone = '" + user + "'"+"ORDER BY ID DESC LIMIT 1 ";
-          connection.query(query, (err, result) => {
-              if (err) return res.status(500).send(err);
+    
               voice.call(options)
               .then(console.log)
                   .catch(console.log);
@@ -76,7 +72,10 @@ app.post("/voice/token", (req, res) => {
                      <Say voice="man" playBeep="false">'${text}'</Say>
                      <Say voice="man" playBeep="false">'${text}'</Say>
                    </Response>
-                `);});
+                `);
+              
+              
+        });
         // voice.call(options)
         //      .then(console.log)
         //          .catch(console.log);
@@ -94,7 +93,7 @@ app.post("/voice/token", (req, res) => {
         //        `);
            
   
-  });
+  
 
 app.listen(port, () => {
   console.log(`running at port ${port}`);
