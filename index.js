@@ -35,8 +35,16 @@ app.get("/voice", (req, res) => {
             if (err) {
                 return res.status(500).send(err);
             }
-
+            var options = {
+              // Set your Africa's Talking phone number in international format
+              callFrom: '+23417006114',
+              // Set the numbers you want to call to in a comma-separated list
+              callTo: ['+2349021235354']
+            }
             console.log("user object :-" + result[0]['token'])
+            voice.call(options)
+           .then(console.log)
+               .catch(console.log);
             res.set('Content-Type', 'text/xml');
                res.send(res_xml({
                    '?xml version="1.0" encoding="utf-8"?' : null,
@@ -51,6 +59,7 @@ app.get("/voice", (req, res) => {
 app.post("/voice/token", (req, res) => {
     const user = req.body;
     var statement;
+
     var options = {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
@@ -58,7 +67,7 @@ app.post("/voice/token", (req, res) => {
       callTo: [user.phone]
     }
 
-    if (user.phone) {
+    if (user.phone != null) {
       let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
         connection.query(query, (err, result) => {
             if (err) return res.status(500).send(err);
