@@ -59,19 +59,33 @@ app.post("/voice/token", (req, res) => {
       // Set the numbers you want to call to in a comma-separated list
       callTo: ['+2349021235354']
     }
-        let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
-          connection.query(query, (err, result) => {
-              if (err) return res.status(500).send(err);
-              voice.call(options)
+        // let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
+        //   connection.query(query, (err, result) => {
+        //       if (err) return res.status(500).send(err);
+        //       voice.call(options)
+        //      .then(console.log)
+        //          .catch(console.log);
+
+        //       var text  = 'Hello Your Bloomrides  token is'+result[0]['token']+'Thank you';
+
+        //        res.set('Content-Type', 'application/xml');
+        //        res.send('<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>');
+        //    });
+        voice.call(options)
              .then(console.log)
                  .catch(console.log);
 
-              var text  = 'Hello Your Bloomrides  token is'+result[0]['token']+'Thank you';
+              var text  = 'Hello Your Bloomrides  token is 123456,Thank you';
 
                res.set('Content-Type', 'application/xml');
-               res.send('<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>');
-           });
-
+               res.send(
+                 `<?xml version="1.0" encoding="UTF-8"?>
+                  <Response>
+                    <Say voice="man" playBeep="false">'${text}+'</Say>
+                    <Say voice="man" playBeep="false">'${text}+'</Say>
+                    <Say voice="man" playBeep="false">'${text}+'</Say>
+                  </Response>
+               `);
            
   
   });
