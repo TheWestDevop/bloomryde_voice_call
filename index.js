@@ -49,34 +49,31 @@ app.get("/voice", (req, res) => {
   });
 
 app.post("/voice/token", (req, res) => {
-    //const user = req.body;
+    const user = req.body;
     var statement;
 
     var options = {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
-      callTo: ['+2349021235354']
+      callTo: [user.phone]
     }
-        // let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
-        //   connection.query(query, (err, result) => {
-        //       if (err) return res.status(500).send(err);
-        //      
-              
-        //    });
+        let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
+          connection.query(query, (err, result) => {
+              if (err) return res.status(500).send(err);
+              statement = "Hello From Bloomrydes Your token is "+result[0]['token']+" Thank you";
+              voice.call(options)
+             .then(console.log)
+                 .catch(console.log);
 
-           statement = "Hello From Bloomrydes Your token is 12345 Thank you";
-
-           voice.call(options)
-           .then(console.log)
-               .catch(console.log);
-
-             // var response  = '<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>';
-             res.set('Content-Type', 'application/xml');
-             res.send(res_xml({
-                 '?xml version="1.0" encoding="utf-8"?' : null,
-                 Response:{Say:statement}
-             }));
+               // var response  = '<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>';
+               res.set('Content-Type', 'application/xml');
+               res.send(res_xml({
+                   '?xml version="1.0" encoding="utf-8"?' : null,
+                   Response:{Say:statement}
+               }));
+           });
+  
   });
 
 app.listen(port, () => {
