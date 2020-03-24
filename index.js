@@ -68,7 +68,7 @@ app.post("/voice/token", (req, res) => {
                res.set('Content-Type', 'application/xml');
                res.send(res_xml({
                    '?xml version="1.0" encoding="utf-8"?' : null,
-                   Response:{Say:"Hello From Bloomrydes Your token is "+result[0]['token']+" Thank you"}
+                   Response:{Say:"Hello From Bloomrydes Your token is 1234 Thank you"}
                }));
            });
   
