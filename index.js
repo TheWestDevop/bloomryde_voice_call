@@ -55,7 +55,7 @@ app.post("/voice/token", (req, res) => {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
-      callTo: `${req.body.phone}`
+      callTo: `+2349021235354`
     }
     
               voice.call(options)
