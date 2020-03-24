@@ -52,7 +52,7 @@ app.get("/voice", (req, res) => {
 
 app.post("/voice/token", (req, res) => {
 
-    const user = req.body.phone;
+    var user = req.body.phone;
 
     var options = {
       // Set your Africa's Talking phone number in international format
