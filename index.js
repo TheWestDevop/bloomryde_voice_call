@@ -62,7 +62,7 @@ app.post("/voice/token", (req, res) => {
               .then(console.log)
                   .catch(console.log);
  
-               var text  = `Your Bloom ride token is ${req.body},Thank you`;
+               var text  = `Your Bloom ride token is ${req.body.phone},Thank you`;
  
                 res.set('Content-Type', 'application/xml');
                 res.send(
