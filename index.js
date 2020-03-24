@@ -66,10 +66,14 @@ app.post("/voice/token", (req, res) => {
              .then(console.log)
                  .catch(console.log);
 
-                var response  = '<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+statement+'</Say></Response>';
+               // var response  = '<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>';
   
-               res.set('Content-Type', 'text/plain');
-               res.send(response); 
+          res.set('Content-Type', 'text/plain');
+                 res.send(res_xml({
+                     '?xml version="1.0" encoding="utf-8"?' : null,
+                     Response:{Say:statement}
+                 }));
+              
            });
                  
       }
