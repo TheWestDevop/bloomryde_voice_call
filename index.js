@@ -56,7 +56,7 @@ app.post("/voice/token", (req, res) => {
       // Set the numbers you want to call to in a comma-separated list
       callTo: [user.phone]
     }
-    try {
+   
       if (user.phone != null) {
         let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
           connection.query(query, (err, result) => {
@@ -75,13 +75,7 @@ app.post("/voice/token", (req, res) => {
            });
                  
       }
-    } catch (error) {
-      res.status(401).json({
-        message: error
-      });
-    }
-
-    
+  
   });
 
 app.listen(port, () => {
