@@ -70,6 +70,7 @@ app.post("/voice/token", (req, res) => {
                    <Response>
                      <Say voice="man" playBeep="false">'${text}'</Say>
                      <Say voice="man" playBeep="false">'${text}'</Say>
+                     <Reject/>
                    </Response>
                 `);
               
