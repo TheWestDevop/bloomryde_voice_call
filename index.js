@@ -55,20 +55,19 @@ app.post("/voice/token", (req, res) => {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
-      callTo: `${user}`
+      callTo: `+2349021235354`
     }
     
               voice.call(options)
               .then(console.log)
                   .catch(console.log);
  
-               var text  = `Your Bloom ride token is ${123456},Thank you`;
+               var text  = `Your Bloom ride token is 123456,Thank you`;
  
                 res.set('Content-Type', 'application/xml');
                 res.send(
                   `<?xml version="1.0" encoding="UTF-8"?>
                    <Response>
-                     <Say voice="man" playBeep="false">'${text}'</Say>
                      <Say voice="man" playBeep="false">'${text}'</Say>
                      <Say voice="man" playBeep="false">'${text}'</Say>
                    </Response>
