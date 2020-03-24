@@ -59,11 +59,11 @@ app.post("/voice/token", (req, res) => {
       // Set the numbers you want to call to in a comma-separated list
       callTo: [user.phone]
     }
-        let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
-          connection.query(query, (err, result) => {
-              if (err) return res.status(500).send(err);
+        // let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
+        //   connection.query(query, (err, result) => {
+        //       if (err) return res.status(500).send(err);
               
-           });
+        //    });
 
            voice.call(options)
              .then(console.log)
