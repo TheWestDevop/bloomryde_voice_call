@@ -4,7 +4,7 @@ const mysql      = require('mysql');
 
 // Set your app credentials
 const credentials = {
-    apiKey: '580ce676a6136ca2bb37cb74c2d710fa09050e87c935bbac73e0c73b33aacec4',
+    apiKey: '4b70baaac52b643ce672febd698d82118a52ebe2ac75d7799a935aba64d2fb68',
     username: 'Bloomrydes'
 }
 const AfricasTalking = require('africastalking')(credentials);
