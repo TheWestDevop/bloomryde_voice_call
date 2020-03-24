@@ -51,7 +51,7 @@ connection.connect();
 
 app.post("/voice/token", (req, res) => {
 
-    //var user = req.body.phone;
+    var user = req.body.phone;
 
     var options = {
       // Set your Africa's Talking phone number in international format
@@ -59,14 +59,14 @@ app.post("/voice/token", (req, res) => {
       // Set the numbers you want to call to in a comma-separated list
       callTo: '+2349021235354'
     }
-        let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
+        let query = "SELECT * FROM `tokens` WHERE phone = '" + user + "'"+"ORDER BY ID DESC LIMIT 1 ";
           connection.query(query, (err, result) => {
               if (err) return res.status(500).send(err);
               voice.call(options)
               .then(console.log)
                   .catch(console.log);
  
-               var text  = `Hello Your Bloomrides  token is ${result[0]['token']},Thank you`;
+               var text  = `Hello Your Bloom ride token is ${result[0]['token']},Thank you`;
  
                 res.set('Content-Type', 'application/xml');
                 res.send(
