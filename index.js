@@ -52,13 +52,13 @@ app.get("/voice", (req, res) => {
 
 app.post("/voice/token", (req, res) => {
 
-    const user = req.body;
+    const user = req.params.phone;
 
     var options = {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
-      callTo: ['+2349021235354']
+      callTo: [user]
     }
         // let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
         //   connection.query(query, (err, result) => {
