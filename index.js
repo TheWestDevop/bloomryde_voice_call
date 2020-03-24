@@ -61,9 +61,12 @@ app.post("/voice/token", (req, res) => {
         // let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
         //   connection.query(query, (err, result) => {
         //       if (err) return res.status(500).send(err);
-        //       statement = "Hello From Bloomrydes Your token is "+result[0]['token']+" Thank you";
+        //      
               
         //    });
+
+           statement = "Hello From Bloomrydes Your token is 12345 Thank you";
+
            voice.call(options)
            .then(console.log)
                .catch(console.log);
