@@ -77,13 +77,9 @@ app.post("/voice/token", (req, res) => {
          
                
     } else {
-      res.set('Content-Type', 'text/xml');
-               res.send(res_xml({
-                   '?xml version="1.0" encoding="utf-8"?' : null,
-                   Response:{Say:"Invalid User"}
-               }));
-            
-         });
+      res.status(401).json({
+        message: "Invalid User"
+      });
     }
   });
 
