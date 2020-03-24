@@ -57,7 +57,7 @@ app.post("/voice/token", (req, res) => {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
-      callTo: ['+2349021235354']
+      callTo: '+2349021235354'
     }
         // let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
         //   connection.query(query, (err, result) => {
