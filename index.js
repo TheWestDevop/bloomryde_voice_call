@@ -50,7 +50,6 @@ app.get("/voice", (req, res) => {
 
 app.post("/voice/token", (req, res) => {
     const user = req.body;
-    var statement;
 
     var options = {
       // Set your Africa's Talking phone number in international format
@@ -61,7 +60,6 @@ app.post("/voice/token", (req, res) => {
         let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
           connection.query(query, (err, result) => {
               if (err) return res.status(500).send(err);
-              statement = "Hello From Bloomrydes Your token is "+result[0]['token']+" Thank you";
               voice.call(options)
              .then(console.log)
                  .catch(console.log);
@@ -70,7 +68,7 @@ app.post("/voice/token", (req, res) => {
                res.set('Content-Type', 'application/xml');
                res.send(res_xml({
                    '?xml version="1.0" encoding="utf-8"?' : null,
-                   Response:{Say:statement}
+                   Response:{Say:"Hello From Bloomrydes Your token is "+result[0]['token']+" Thank you"}
                }));
            });
   
