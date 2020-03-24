@@ -10,7 +10,7 @@ const credentials = {
 }
 const AfricasTalking = require('africastalking')(credentials);
 const db = "bloomrydes";
-const connection = mysql.createPool({
+const connection = mysql.createConnection({
     host: "bloomrydes1.mysql.database.azure.com",
     user: "bloomrydes@bloomrydes1", 
     password:"%M#{rav#i)gs", 
@@ -30,6 +30,8 @@ const port = process.env.PORT || 3200;
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(xmlparser());
+
+connection.connect();
 
 app.get("/voice", (req, res) => {
    let query = "SELECT * FROM `tokens` WHERE phone = +2349021235354 ORDER BY ID DESC LIMIT 1 ";
