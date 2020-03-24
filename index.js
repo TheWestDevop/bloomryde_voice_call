@@ -58,24 +58,22 @@ app.post("/voice/token", (req, res) => {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
-      callTo: [user]
+      callTo: ['+2349021235354']
     }
-        // let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
-        //   connection.query(query, (err, result) => {
-        //       if (err) return res.status(500).send(err);
-              
-        //    });
-
-           voice.call(options)
+        let query = "SELECT * FROM `tokens` WHERE phone = '" + user.phone + "'"+"ORDER BY ID DESC LIMIT 1 ";
+          connection.query(query, (err, result) => {
+              if (err) return res.status(500).send(err);
+              voice.call(options)
              .then(console.log)
                  .catch(console.log);
 
-               // var response  = '<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>';
+              var text  = 'Hello Your Bloomrides  token is'+result[0]['token']+'Thank you';
+              
                res.set('Content-Type', 'application/xml');
-               res.send(res_xml({
-                   '?xml version="1.0" encoding="utf-8"?' : null,
-                   Response:{Say:"Hello From Bloomrydes Your token is 1234 Thank you"}
-               }));
+               res.send('<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>');
+           });
+
+           
   
   });
 
