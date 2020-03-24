@@ -1,7 +1,6 @@
 const express = require("express");
-var res_xml = require('object-to-xml');
 const mysql      = require('mysql');
-const xmlparser = require('express-xml-bodyparser');
+//const xmlparser = require('express-xml-bodyparser');
 
 // Set your app credentials
 const credentials = {
@@ -33,26 +32,26 @@ app.use(bodyparser.urlencoded({ extended: false }));
 
 connection.connect();
 
-app.get("/voice", (req, res) => {
-   let query = "SELECT * FROM `tokens` WHERE phone = +2349021235354 ORDER BY ID DESC LIMIT 1 ";
-        connection.query(query, (err, result) => {
-            if (err) {
-                return res.status(500).send(err);
-            }
-            res.set('Content-Type', 'text/xml');
-               res.send(res_xml({
-                   '?xml version="1.0" encoding="utf-8"?' : null,
-                   Response:{Say:"Hello Bloomryder voice user " + result[0]['token']}
-               }));
-            // res.status(200).json({
-            //   message: 
-            // });
-        });
-  });
+// app.get("/voice", (req, res) => {
+//    let query = "SELECT * FROM `tokens` WHERE phone = +2349021235354 ORDER BY ID DESC LIMIT 1 ";
+//         connection.query(query, (err, result) => {
+//             if (err) {
+//                 return res.status(500).send(err);
+//             }
+//             res.set('Content-Type', 'text/xml');
+//                res.send(res_xml({
+//                    '?xml version="1.0" encoding="utf-8"?' : null,
+//                    Response:{Say:"Hello Bloomryder voice user " + result[0]['token']}
+//                }));
+//             // res.status(200).json({
+//             //   message: 
+//             // });
+//         });
+//   });
 
 app.post("/voice/token", (req, res) => {
 
-    var user = req.body.phone;
+    //var user = req.body.phone;
 
     var options = {
       // Set your Africa's Talking phone number in international format
@@ -68,7 +67,7 @@ app.post("/voice/token", (req, res) => {
                  .catch(console.log);
 
               var text  = 'Hello Your Bloomrides  token is'+result[0]['token']+'Thank you';
-              
+
                res.set('Content-Type', 'application/xml');
                res.send('<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="man" playBeep="false">'+text+'</Say></Response>');
            });
