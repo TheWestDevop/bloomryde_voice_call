@@ -1,7 +1,7 @@
 const express = require("express");
 var res_xml = require('object-to-xml');
 const mysql      = require('mysql');
-var xmlparser = require('express-xml-bodyparser');
+const xmlparser = require('express-xml-bodyparser');
 
 // Set your app credentials
 const credentials = {
@@ -29,7 +29,7 @@ const port = process.env.PORT || 3200;
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
-app.use(xmlparser());
+//app.use(xmlparser());
 
 connection.connect();
 
@@ -51,6 +51,7 @@ app.get("/voice", (req, res) => {
   });
 
 app.post("/voice/token", (req, res) => {
+
     const user = req.body;
 
     var options = {
