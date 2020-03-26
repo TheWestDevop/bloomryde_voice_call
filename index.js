@@ -26,7 +26,7 @@ app.post("/voice/token", async (req, res) => {
 
     var user = req.body.phone;
      var data =  {
-       "phone_number":user
+       "phone":user
      }
 
     var options = {
@@ -35,21 +35,24 @@ app.post("/voice/token", async (req, res) => {
       // Set the numbers you want to call to in a comma-separated list
       callTo: `+2349021235354`
     }
-    
+            var token =  connect.post('https://bloomrydes.azurewebsites.net/public',data)
+            
             await  voice.call(options)
-              .then(console.log)
+              .then((response)=>{
+                var text  = `Your Bloom ride token is ${response.callerNumber},Thank you`;
+ 
+                res.set('Content-Type', 'application/xml');
+                res.send(`<?xml version="1.0" encoding="UTF-8"?>
+                     <Response>
+                       <Say voice="man" playBeep="false">'${text}'</Say>
+                       <Say voice="man" playBeep="false">'${text}'</Say>
+                       <Reject/>
+                     </Response>
+                  `);
+              })
                   .catch(console.log);
  
-               var text  = `Your Bloom ride token is 123456,Thank you`;
- 
-              res.set('Content-Type', 'application/xml');
-              res.send(`<?xml version="1.0" encoding="UTF-8"?>
-                   <Response>
-                     <Say voice="man" playBeep="false">'${text}'</Say>
-                     <Say voice="man" playBeep="false">'${text}'</Say>
-                     <Reject/>
-                   </Response>
-                `);
+               
               
               
         });
