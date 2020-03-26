@@ -26,42 +26,30 @@ app.post("/voice/token", async (req, res) => {
 
     var user = req.body.phone;
      var data =  {
-       "phone":user
+       "phone_number":user
      }
-     var options = {
+
+    var options = {
       // Set your Africa's Talking phone number in international format
       callFrom: '+23417006114',
       // Set the numbers you want to call to in a comma-separated list
       callTo: `+2349021235354`
     }
-
-     await axios.get('https://bloomrydes.azurewebsites.net/public',data)
-  .then(function (response) {
-    // handle success
-    await  voice.call(options)
-    .then(console.log)
-        .catch(console.log);
-
-     var text  = `Your Bloom ride token is ${response.body.token},Thank you`;
-
-    res.set('Content-Type', 'application/xml');
-    res.send(`<?xml version="1.0" encoding="UTF-8"?>
-         <Response>
-           <Say voice="man" playBeep="false">'${text}'</Say>
-           <Say voice="man" playBeep="false">'${text}'</Say>
-           <Reject/>
-         </Response>
-      `);
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-
     
-    
-           
+            await  voice.call(options)
+              .then(console.log)
+                  .catch(console.log);
+ 
+               var text  = `Your Bloom ride token is 123456,Thank you`;
+ 
+              res.set('Content-Type', 'application/xml');
+              res.send(`<?xml version="1.0" encoding="UTF-8"?>
+                   <Response>
+                     <Say voice="man" playBeep="false">'${text}'</Say>
+                     <Say voice="man" playBeep="false">'${text}'</Say>
+                     <Reject/>
+                   </Response>
+                `);
               
               
         });
