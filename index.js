@@ -54,7 +54,7 @@ app.post("/voice/token", async (req, res) => {
 
 
   await voice.call(options)
-    .then((token) => {
+    .then(() => {
         
     })
     .catch(console.log);
@@ -64,8 +64,10 @@ app.post("/voice/token", async (req, res) => {
         'phone': `${user}`
       }
     });
-    var text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
+     if (response.data.data.otp != null) {
+      var text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
       res.set('Content-Type', 'application/xml');
+      res.status(200);
       res.send(
         `
         
@@ -77,6 +79,13 @@ app.post("/voice/token", async (req, res) => {
              </Response>
           `
       );
+     } else {
+      res.status(200);
+      res.send(
+        `Token Not Found`
+      );
+     }
+     
 
 });
 
