@@ -52,33 +52,31 @@ app.post("/voice/token", async (req, res) => {
   }
 
 
-  var text = '';
-
 
   await voice.call(options)
-    .then(async (token) => {
-        const response = await axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
-          data: {
-            'phone': `${user}`
-          }
-        });
-        text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
-          res.set('Content-Type', 'application/xml');
-          res.send(
-            `
-            
-            <?xml version="1.0" encoding="UTF-8"?>
-                 <Response>
-                   <Say voice="man" playBeep="false">${text}</Say>
-                   <Say voice="man" playBeep="false">${text}</Say>
-                   <Reject/>
-                 </Response>
-              `
-          );
+    .then((token) => {
+        
     })
     .catch(console.log);
 
-
+    const response = await axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
+      data: {
+        'phone': `${user}`
+      }
+    });
+    var text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
+      res.set('Content-Type', 'application/xml');
+      res.send(
+        `
+        
+        <?xml version="1.0" encoding="UTF-8"?>
+             <Response>
+               <Say voice="man" playBeep="false">${text}</Say>
+               <Say voice="man" playBeep="false">${text}</Say>
+               <Reject/>
+             </Response>
+          `
+      );
 
 });
 
