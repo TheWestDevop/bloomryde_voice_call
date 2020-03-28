@@ -56,17 +56,13 @@ app.post("/voice/token", async (req, res) => {
 
 
   await voice.call(options)
-    .then((response) => {
-
-      var phone = response.entries[0].phoneNumber
-      axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
+    .then(async (token) => {
+        const response = await axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
           data: {
             'phone': `${user}`
           }
-        })
-        .then(function (response) {
-          console.log(response);
-          text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
+        });
+        text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
           res.set('Content-Type', 'application/xml');
           res.send(
             `
@@ -79,7 +75,6 @@ app.post("/voice/token", async (req, res) => {
                  </Response>
               `
           );
-        });
     })
     .catch(console.log);
 
@@ -91,11 +86,3 @@ app.post("/voice/token", async (req, res) => {
 app.listen(port, () => {
   console.log(`running at port ${port}`);
 });
-
-function getToken(phone) {
-  let query = "SELECT * FROM `tokens` WHERE phone = '" + phone + "'" + "ORDER BY ID DESC LIMIT 1 ";
-  connection.query(query, (err, result) => {
-    if (err) return res.status(500).send(err);
-    return `Your Bloom ride token is ${result[0]['token']},Thank you`;
-  });
-}
