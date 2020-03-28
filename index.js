@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require('mysql');
+const axios = require('axios');
 
 
 // Set your app credentials
@@ -23,15 +23,21 @@ app.use(bodyparser.urlencoded({
   extended: false
 }));
 
-var connection = mysql.createPool({
-  host: "bloomrydes1.mysql.database.azure.com",
-    user: "bloomrydes@bloomrydes1", 
-    password:"%M#{rav#i)gs", 
-    database:"bloomrydes", 
-    port: 3306,
-});
+// var connection = mysql.createConnection({
+//   host: "bloomrydes1.mysql.database.azure.com",
+//     user: "bloomrydes@bloomrydes1", 
+//     password:"%M#{rav#i)gs", 
+//     database:"bloomrydes", 
+//     port: 3306,
+// });
 
-//connection.connect();
+// connection.connect((err) => {
+//   if(err){
+//     console.log('Error connecting to Db');
+//     return;
+//   }
+//   console.log('Connection established');
+// });
 
 app.post("/voice/token", async (req, res) => {
 
@@ -45,34 +51,51 @@ app.post("/voice/token", async (req, res) => {
     callTo: `${user}`
   }
 
+
+  var text = '';
+
+
   await voice.call(options)
     .then((response) => {
 
       var phone = response.entries[0].phoneNumber
-      let query = "SELECT * FROM `tokens` WHERE phone = '" + phone + "'" + "ORDER BY ID DESC LIMIT 1 ";
-      connection.query(query, (err, result) => {
-        if (err) return res.status(500).send(err);
-        var text = `Your Bloom ride token is ${result[0]['token']},Thank you`;
-        res.set('Content-Type', 'application/xml');
-        res.send(
-          `
-              
-              <?xml version="1.0" encoding="UTF-8"?>
-                   <Response>
-                     <Say voice="man" playBeep="false">'${text}'</Say>
-                     <Say voice="man" playBeep="false">'${text}'</Say>
-                     <Reject/>
-                   </Response>
-                `
-        );
-      });
-      
+      axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
+          data: {
+            'phone': `${user}`
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+          text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
+          res.set('Content-Type', 'application/xml');
+          res.send(
+            `
+            
+            <?xml version="1.0" encoding="UTF-8"?>
+                 <Response>
+                   <Say voice="man" playBeep="false">${text}</Say>
+                   <Say voice="man" playBeep="false">${text}</Say>
+                   <Reject/>
+                 </Response>
+              `
+          );
+        });
     })
     .catch(console.log);
-     
+
+
+
 });
- 
+
 
 app.listen(port, () => {
   console.log(`running at port ${port}`);
 });
+
+function getToken(phone) {
+  let query = "SELECT * FROM `tokens` WHERE phone = '" + phone + "'" + "ORDER BY ID DESC LIMIT 1 ";
+  connection.query(query, (err, result) => {
+    if (err) return res.status(500).send(err);
+    return `Your Bloom ride token is ${result[0]['token']},Thank you`;
+  });
+}
