@@ -55,7 +55,16 @@ app.post("/voice/token", async (req, res) => {
 
   await voice.call(options)
     .then(() => {
-      var text = `Your Bloom ride token is 435679,Thank you`;
+    })
+    .catch(console.log);
+
+    // const response = await axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
+    //   data: {
+    //     'phone': `${user}`
+    //   }
+    // });
+     
+    var text = `Your Bloom ride token is 435679,Thank you`;
       res.set('Content-Type', 'application/xml');
       res.status(200);
       res.send(
@@ -69,15 +78,6 @@ app.post("/voice/token", async (req, res) => {
              </Response>
           `
       );
-    })
-    .catch(console.log);
-
-    // const response = await axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
-    //   data: {
-    //     'phone': `${user}`
-    //   }
-    // });
-     
       
     
      
