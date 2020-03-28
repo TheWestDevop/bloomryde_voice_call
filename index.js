@@ -55,17 +55,7 @@ app.post("/voice/token", async (req, res) => {
 
   await voice.call(options)
     .then(() => {
-        
-    })
-    .catch(console.log);
-
-    const response = await axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
-      data: {
-        'phone': `${user}`
-      }
-    });
-     if (response.data.data.otp != null) {
-      var text = `Your Bloom ride token is ${response.data.data.otp},Thank you`;
+      var text = `Your Bloom ride token is 435679,Thank you`;
       res.set('Content-Type', 'application/xml');
       res.status(200);
       res.send(
@@ -79,12 +69,17 @@ app.post("/voice/token", async (req, res) => {
              </Response>
           `
       );
-     } else {
-      res.status(200);
-      res.send(
-        `Token Not Found`
-      );
-     }
+    })
+    .catch(console.log);
+
+    // const response = await axios.get('https://bloomrydes.azurewebsites.net/public/api/get-otp', {
+    //   data: {
+    //     'phone': `${user}`
+    //   }
+    // });
+     
+      
+    
      
 
 });
