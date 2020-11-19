@@ -4,7 +4,7 @@ const axios = require('axios');
 
 // Set your app credentials
 const credentials = {
-  apiKey: '4b70baaac52b643ce672febd698d82118a52ebe2ac75d7799a935aba64d2fb68',
+  apiKey: 'AfricasTalking API Key',
   username: 'Bloomrydes'
 }
 const AfricasTalking = require('africastalking')(credentials);
@@ -24,8 +24,8 @@ app.use(bodyparser.urlencoded({
 }));
 
 // var connection = mysql.createConnection({
-//   host: "bloomrydes1.mysql.database.azure.com",
-//     user: "bloomrydes@bloomrydes1", 
+//   host: "DB URL",
+//     user: "username", 
 //     password:"%M#{rav#i)gs", 
 //     database:"bloomrydes", 
 //     port: 3306,
